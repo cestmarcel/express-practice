@@ -2,7 +2,7 @@
 var express = require("express");
 var app = express();
 
-var PORT = 8080;
+var PORT = process.env.PORT;
 
 // Express.static will define a static folder to look for files and serve to the client
 app.use(express.static("pages"));
