@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing page</title>
+</head>
+<body>
+    <h1>I am the landing page! Woohoo!</h1>
+    <a href="dogs.html">Go to dog!</a>
+    <button onclick="fetchStuff()">Fetch something!</button>
+</body>
+
+<script>
+    async function fetchStuff(){
+        const result = await fetch("/dogs");
+        const data = await result.json();
+        console.log(data);
+    }
+</script>
+
+</html>

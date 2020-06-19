@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a dog!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <form class="mt-5">
+            <h4>Add a puppy here:</h4>
+            <div class="form-group">
+            <label for="dogName">Name</label>
+            <input type="text" class="form-control" id="dogName" placeholder="Enter name">
+            </div>
+            <div class="form-group">
+                <label for="dogBreed">Breed</label>
+                <input type="text" class="form-control" id="dogBreed" placeholder="Enter breed">
+            </div>
+            <div class="form-group">
+                <label for="dogAge">Age</label>
+                <input type="number" class="form-control" id="dogAge" placeholder="Enter age">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="submitDog()">Submit doggy!</button>
+        </form>`
+        <div class="mt-5 mb-5">
+            <h4>Here are our puppies:</h4>
+            <ul id="dlist"></ul>
+        </div>
+    </div>
+</body>
+
+<script>
+    
+    async function submitDog(){
+        var dogname = document.getElementById("dogName").value;
+        var dogbreed = document.getElementById("dogBreed").value;
+        var dogage = document.getElementById("dogAge");
+
+        var newDog = {
+            name: dogname,
+            breed: dogbreed,
+            age: Number(dogage.value)
+        }
+        var stringDog = JSON.stringify(newDog);
+        const result = await fetch("/dogs", {
+            method: "POST",
+            headers: {"content-Type": "application/json"},
+            body: stringDog
+        })
+        console.log(stringDog);
+        const data = await result.json();
+        console.log(data);
+        for(var i = 0; i<data.length; i++){
+            dlist.innerHTML += `<li>${data[i].name}</li>`
+        }
+    }
+
+</script>
+</html>
